@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "lnZghE5i901lkkewI1yOltR+z40c2VfARE9kagWbvmXtgmh/m5u9CmrxqWwuadTxRabJ/NY17bkBUUN68faQiw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\OneClickLogViewer\\OneClickLogViewer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\dirkster.avalondock\\4.72.0\\dirkster.avalondock.4.72.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\dirkster.avalondock.themes.vs2013\\4.72.0\\dirkster.avalondock.themes.vs2013.4.72.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\mahapps.metro\\2.4.9\\mahapps.metro.2.4.9.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.19\\microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\modernwpfui\\0.9.5\\modernwpfui.0.9.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\modernwpfui.mahapps\\0.9.5\\modernwpfui.mahapps.0.9.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}
