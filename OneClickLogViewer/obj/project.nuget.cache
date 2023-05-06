@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lnZghE5i901lkkewI1yOltR+z40c2VfARE9kagWbvmXtgmh/m5u9CmrxqWwuadTxRabJ/NY17bkBUUN68faQiw==",
+  "dgSpecHash": "2kLPHTkkH1q7k4OXz3oU6hKI5K7F1YIYI/8kU5SMngkM6X9iMf2tDmqh3ZTHtSobPWzcHXN16pVLAUjiu38SFA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\OneClickLogViewer\\OneClickLogViewer.csproj",
+  "projectFilePath": "C:\\OneClickLogViewer\\OneClickLogViewer\\OneClickLogViewer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\dirkster.avalondock\\4.72.0\\dirkster.avalondock.4.72.0.nupkg.sha512",

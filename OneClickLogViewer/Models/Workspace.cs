@@ -1,20 +1,4 @@
-﻿/************************************************************************
-
-   AvalonDock
-
-   Copyright (C) 2007-2013 Xceed Software Inc.
-
-   This program is provided to you under the terms of the New BSD
-   License (BSD) as published at http://avalondock.codeplex.com/license 
-
-   For more features, controls, and fast professional support,
-   pick up AvalonDock in Extended WPF Toolkit Plus at http://xceed.com/wpf_toolkit
-
-   Stay informed: follow @datagrid on Twitter or Like facebook.com/datagrids
-
-  **********************************************************************/
-
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -28,14 +12,7 @@ namespace OneClickLogViewer.Models
 {
     class Workspace : ViewModelBase
     {
-        protected Workspace()
-        {
-        }
-
-
-        // static 으로 선언된 This 라는 이름의 Workspace 객체를 가져온다.
-        // 이 This 프로퍼티를 사용하면, Workspace 클래스의 인스턴스가 오직 하나만 생성된다.
-        // 이를 Singleton 패턴이라고 한다.
+        protected Workspace(){}
 
         static Workspace _this = new Workspace();
 
@@ -44,17 +21,8 @@ namespace OneClickLogViewer.Models
             get { return _this; }
         }
 
-
-
-        //ObservableCollection 타입은 .NET Framework에서 제공하는 동적인 컬렉션타입으로,
-        // 컬렉션에 항목이 추가되거나 삭제될 때마다 자동으로 UI를 업데이트한다.
-        // 이것은 MVVM 디자인패턴에서 viewModel에서 View로 데이터를 바인딩할때 사용된다.
-        // ObservableCollection 을 사용하면 ViewModel에서 컬렉션의 변경사항을 알리고,
-        // View 에서 해당 변경 사항을 처리할 수 있다.
-
-
         ObservableCollection<FileViewModel> _files = new ObservableCollection<FileViewModel>();
-        ReadOnlyObservableCollection<FileViewModel> _readonyFiles = null;
+        ReadOnlyObservableCollection<FileViewModel> _readonyFiles = null!;
         public ReadOnlyObservableCollection<FileViewModel> Files
         {
             get
@@ -66,7 +34,7 @@ namespace OneClickLogViewer.Models
             }
         }
 
-        ToolViewModel[] _tools = null;
+        ToolViewModel[] _tools = null!;
 
         public IEnumerable<ToolViewModel> Tools
         {
@@ -90,8 +58,6 @@ namespace OneClickLogViewer.Models
             }
         }
 
-
-        // WPF에서 Command 패턴을 구현할 대, ICommand 인터페이스를 사용하는 방법이다.
         #region OpenCommand
 
         RelayCommand _openCommand = null;
@@ -101,10 +67,6 @@ namespace OneClickLogViewer.Models
             {
                 if (_openCommand == null)
                 {
-                    // RelayCommand 클래스를 인스턴스화한다.
-                    // 생성자에 전달되는 두개의 델리게이트를 각 OnOpen 메서드와 CanOpen 메서드로 설정한다.
-                    // (p) => OnOpen(p)
-                    // p를 인자로 받아서 OnOpen 메소드를 호출하는 것을 의미한다.
                     _openCommand = new RelayCommand((p) => OnOpen(p), (p) => CanOpen(p));
                 }
 
@@ -162,12 +124,8 @@ namespace OneClickLogViewer.Models
 
         private void OnNew(object parameter)
         {
-            // file 컬렉션에 추가한다.
             _files.Add(new FileViewModel());
-
-            //Last는 컬렉션의 마지막 요소를 반환하고, 활성화된 문서로 설정한다.
             ActiveDocument = _files.Last();
-
         }
 
         #endregion 

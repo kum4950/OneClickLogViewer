@@ -1524,11 +1524,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\OneClickLogViewer\\OneClickLogViewer.csproj",
+      "projectUniqueName": "C:\\OneClickLogViewer\\OneClickLogViewer\\OneClickLogViewer.csproj",
       "projectName": "OneClickLogViewer",
-      "projectPath": "C:\\Users\\Administrator\\source\\repos\\OneClickLogViewer\\OneClickLogViewer.csproj",
+      "projectPath": "C:\\OneClickLogViewer\\OneClickLogViewer\\OneClickLogViewer.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\source\\repos\\OneClickLogViewer\\obj\\",
+      "outputPath": "C:\\OneClickLogViewer\\OneClickLogViewer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
