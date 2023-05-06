@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Input;
+using OneClickLogViewer.Core;
 using OneClickLogViewer.Models;
 
 namespace OneClickLogViewer.ViewModels
@@ -23,7 +24,7 @@ namespace OneClickLogViewer.ViewModels
 
         public string FilePath
         {
-            get { return _filePath; }
+            get { return _filePath!; }
             set
             {
                 if (_filePath != value)
@@ -83,7 +84,7 @@ namespace OneClickLogViewer.ViewModels
         #endregion
 
         #region SaveCommand
-        RelayCommand _saveCommand = null;
+        RelayCommand _saveCommand = null!;
 
         public ICommand SaveCommand
         {
@@ -111,7 +112,7 @@ namespace OneClickLogViewer.ViewModels
 
 
         #region SaveAsCommand
-        RelayCommand _saveAsCommand = null;
+        RelayCommand _saveAsCommand = null!;
         public ICommand SaveAsCommand
         {
             get
@@ -138,7 +139,7 @@ namespace OneClickLogViewer.ViewModels
         #endregion
 
         #region CloseCommand
-        RelayCommand _closeCommand = null;
+        RelayCommand _closeCommand = null!;
         public ICommand CloseCommand
         {
             get

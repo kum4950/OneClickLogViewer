@@ -15,7 +15,7 @@ namespace OneClickLogViewer.ViewModels
 
         public string Title
         {
-            get { return _title; }
+            get { return _title!; }
 
             set
             {

@@ -1,7 +1,7 @@
 ﻿OneClickLogViewer
 1.0.0.0
 
-winexe
+exe
 C#
 .cs
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\OneClickLogViewer\OneClickLogViewer\App.xaml
-1-1644662438
+3-899101417
 
-162055122549
+19-1081861753
 202-1393551790
-Views\MainWindow.xaml;
+Styles\DatePickerStyle.xaml;Views\DocView.xaml;Views\MainWindow.xaml;
 
 False
 

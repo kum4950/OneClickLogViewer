@@ -4,131 +4,133 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OneClickLogViewer"
-        xmlns:local_views="clr-namespace:OneClickLogViewer.Views"
-        xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
-        Title="MainWindow" Height="450" Width="800"
+        xmlns:view="clr-namespace:OneClickLogViewer.Views"
+        
+        xmlns:viewmodel="clr-namespace:OneClickLogViewer.ViewModels"
+ 
+        Title="OneClickLogViewer" Height="450" Width="800"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True"
-        >
-    
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResize">
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
     <Window.Resources>
-        <local:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
-        <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
     </Window.Resources>
 
-    <Grid>
+    <DockPanel Background="#1E1E1E"
+               Margin="7">
+        <Border Height="28"
+                Background="#252525"
+                DockPanel.Dock="Top">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick"
+                              Command="{Binding MoveWindowCommand}"/>
+            </Border.InputBindings>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="OneClickLogViewer"
+                           Foreground="LightGray"
+                           FontFamily="Consolas"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="100,0,0,0"/>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,4,0">
+                    <Button Content="━"
+                            Padding="0,0,0,2"
+                            Command="{Binding MinimizeWindowCommand}"/>
+                    <Button Content="⬜"
+                            Padding="0,0,0,3"
+                            Command="{Binding MaximizeWindowCommand}"/>
+                    <Button Content="✕"
+                            Padding="0,0,0,2"
+                            Command="{Binding ShutdownWindowCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid DockPanel.Dock="Bottom"
+              Background="#EEEEF2">
+            <!-- Content Area -->
 
-        <Menu Grid.Row="0">
-            <MenuItem Header="File">
-                <MenuItem Header="New" Command="{Binding NewCommand}"/>
-                <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
-                <Separator/>
-                <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}"/>
-                <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
-                <Separator/>
-                <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
-            </MenuItem>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="21"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <MenuItem Header="Tools">
-                <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-            </MenuItem>
+            <Menu Grid.Row="0" 
+              Background="#D5D5D5"
+              Height="21">
+                <MenuItem Header="File"
+                      Height="21">
+                    <MenuItem Header="New" Command="{Binding NewCommand}"/>
+                    <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}"/>
+                    <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
+                </MenuItem>
 
-            <MenuItem Header="Layout">
-                <MenuItem Header="Load" Command="{Binding LoadLayoutCommand, ElementName=mainWindow}"/>
-                <MenuItem Header="Save" Command="{Binding SaveLayoutCommand, ElementName=mainWindow}"/>
-                <MenuItem Header="Dump to Console" Click="OnDumpToConsole"/>
-            </MenuItem>
+                <MenuItem Header="Tools"
+                      Height="21">
+                    <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
+                </MenuItem>
 
-        </Menu>
+                <MenuItem Header="Layout"
+                      Height="21">
+                    <MenuItem Header="Load" Command="{Binding LoadLayoutCommand, ElementName=mainWindow}"/>
+                    <MenuItem Header="Save" Command="{Binding SaveLayoutCommand, ElementName=mainWindow}"/>
+                    <!--<MenuItem Header="Dump to Console" Click="OnDumpToConsole"/>-->
+                </MenuItem>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Left">
+            </Menu>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50">
+                <TextBlock Text="Date :" 
+                       FontSize="12"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="7,0,4,0"
+                       Foreground="Black"/>
 
-            <DatePicker Grid.Column="0"/>
-            <ui:SimpleTimePicker Grid.Column="1"></ui:SimpleTimePicker>
+                <DatePicker Margin="5,0,0,0"
+                        FontSize="8"/>
+
+                <ui:SimpleTimePicker Margin="5,0,0,0"
+                                 FontSize="8"/>
+                <TextBlock Text="~" 
+                       FontSize="12"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="7,0,7,0"
+                       Foreground="Black"/>
+
+                <DatePicker Margin="5,0,0,0"
+                        FontSize="8"/>
+
+                <ui:SimpleTimePicker Margin="5,0,0,0"
+                                 FontSize="8"/>
+
+            </StackPanel>
+            
+            <ContentPresenter Grid.Row="2" Content="{Binding CurrentView}"/>
+       
         </Grid>
 
+    </DockPanel>
 
-        <avalonDock:DockingManager x:Name="dockManager" 
-                                   AnchorablesSource="{Binding Tools}" 
-                                   DocumentsSource="{Binding Files}"
-                                   ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
-                                   Grid.Row="2">
-            <avalonDock:DockingManager.Theme>
-                <avalonDock:Vs2013LightTheme/>
-            </avalonDock:DockingManager.Theme>
-
-            <avalonDock:DockingManager.LayoutItemTemplateSelector>
-                <local_views:PanesTemplateSelector>
-                    <local_views:PanesTemplateSelector.FileViewTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding TextContent, UpdateSourceTrigger=PropertyChanged}"
-                                     BorderThickness="0" />
-                        </DataTemplate>
-                    </local_views:PanesTemplateSelector.FileViewTemplate>
-
-                    <local_views:PanesTemplateSelector.FileStatsViewTemplate>
-                        <DataTemplate>
-                            <Border Padding="5">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding FileSize}"/>
-                                    <TextBlock Text="{Binding LastModified}"/>
-                                    <TextBox Text="test"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </local_views:PanesTemplateSelector.FileStatsViewTemplate>
-
-                </local_views:PanesTemplateSelector>
-            </avalonDock:DockingManager.LayoutItemTemplateSelector>
-
-            <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                <local_views:PanesStyleSelector>
-
-                    <local_views:PanesStyleSelector.ToolStyle>
-                        <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
-                            <Setter Property="Title" Value="{Binding Model.Title}"/>
-                            <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>
-                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-                            <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
-                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
-                        </Style>
-                    </local_views:PanesStyleSelector.ToolStyle>
-
-                    <local_views:PanesStyleSelector.FileStyle>
-                        <Style TargetType="{x:Type avalonDock:LayoutItem}">
-                            <Setter Property="Title" Value="{Binding Model.Title}"/>
-                            <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
-                            <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
-                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-                        </Style>
-                    </local_views:PanesStyleSelector.FileStyle>
-
-                </local_views:PanesStyleSelector>
-            </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-
-            <avalonDock:DockingManager.LayoutUpdateStrategy>
-                <local:LayoutInitializer/>
-            </avalonDock:DockingManager.LayoutUpdateStrategy>
-
-            <avalonDock:LayoutRoot>
-                <avalonDock:LayoutPanel Orientation="Vertical">
-                    <avalonDock:LayoutDocumentPane/>
-                    <avalonDock:LayoutAnchorablePane Name="ToolsPane" DockHeight="150">
-                    </avalonDock:LayoutAnchorablePane>
-                </avalonDock:LayoutPanel>
-            </avalonDock:LayoutRoot>
-
-        </avalonDock:DockingManager>
-    </Grid>
+   
 </Window>

@@ -7,12 +7,13 @@ using System;
 using System.IO;
 using System.Linq;
 using OneClickLogViewer.ViewModels;
+using OneClickLogViewer.Core;
 
 namespace OneClickLogViewer.Models
 {
     class Workspace : ViewModelBase
     {
-        protected Workspace(){}
+        protected Workspace() { }
 
         static Workspace _this = new Workspace();
 

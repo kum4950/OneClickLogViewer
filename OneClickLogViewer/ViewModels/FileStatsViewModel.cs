@@ -1,6 +1,6 @@
-﻿using OneClickLogViewer.Models;
-using System.IO;
+﻿using System.IO;
 using System;
+using OneClickLogViewer.Models;
 
 namespace OneClickLogViewer.ViewModels
 {
@@ -15,7 +15,7 @@ namespace OneClickLogViewer.ViewModels
 
         public const string ToolContentId = "FileStatsTool";
 
-        void OnActiveDocumentChanged(object sender, EventArgs e)
+        void OnActiveDocumentChanged(object? sender, EventArgs e)
         {
             if (Workspace.This.ActiveDocument != null &&
                 Workspace.This.ActiveDocument.FilePath != null &&
