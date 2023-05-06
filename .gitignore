@@ -1,0 +1,66 @@
+# User-specific files
+*.user
+*.userosscache
+*.suo
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+*.VisualState.xml
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.sdf
+*.sln.docstates
+*.suo
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj.*
+*.vcproj.*.user
+*.vcxproj.*
+*.vcxproj.*.user
+*.vshost.*
+*.vspscc
+*.vssscc
+.vs/
+
+# ReSharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Test files
+[Test]/
+[Oo]bj/
+
+# Publish files
+*.publishsettings
+
+# NuGet
+packages/
+*.nupkg
+debug/
+release/
+*.pdb
+*.cache
+
+# Others
+[Tt]humbs.db
+*.bak
+*.log
+*.backup
+*.orig
+*.swp
+*.tmp
+*.temp
+*.bak
+*.cache
+*.gpState
+*.DS_Store
