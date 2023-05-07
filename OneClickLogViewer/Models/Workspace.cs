@@ -8,12 +8,13 @@ using System.IO;
 using System.Linq;
 using OneClickLogViewer.ViewModels;
 using OneClickLogViewer.Core;
+using AvalonDock;
 
 namespace OneClickLogViewer.Models
 {
     class Workspace : ViewModelBase
     {
-        protected Workspace() { }
+        protected Workspace() { MyDockingManager = new DockingManager(); }
 
         static Workspace _this = new Workspace();
 
@@ -21,6 +22,8 @@ namespace OneClickLogViewer.Models
         {
             get { return _this; }
         }
+
+        public DockingManager MyDockingManager { get; set; }
 
         ObservableCollection<FileViewModel> _files = new ObservableCollection<FileViewModel>();
         ReadOnlyObservableCollection<FileViewModel> _readonyFiles = null!;
@@ -47,7 +50,7 @@ namespace OneClickLogViewer.Models
             }
         }
 
-        FileStatsViewModel _fileStats = null;
+        FileStatsViewModel _fileStats = null!;
         public FileStatsViewModel FileStats
         {
             get
@@ -61,7 +64,7 @@ namespace OneClickLogViewer.Models
 
         #region OpenCommand
 
-        RelayCommand _openCommand = null;
+        RelayCommand _openCommand = null!;
         public ICommand OpenCommand
         {
             get
@@ -179,7 +182,7 @@ namespace OneClickLogViewer.Models
                     fileToSave.FilePath = dlg.SafeFileName;
             }
 
-            File.WriteAllText(fileToSave.FilePath, fileToSave.TextContent);
+            File.WriteAllText(fileToSave.FilePath!, fileToSave.TextContent);
             ActiveDocument.IsDirty = false;
         }
 

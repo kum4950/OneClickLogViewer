@@ -6,24 +6,32 @@
              xmlns:view="clr-namespace:OneClickLogViewer.Views"
              StartupUri="Views/MainWindow.xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-              xmlns:sys="clr-namespace:System;assembly=mscorlib">
+              >
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
                 <!-- Other merged dictionaries here -->
-                <ResourceDictionary Source="/Styles/DatePickerStyle.xaml"/>
                 
+                <!--Themes-->
+                <ResourceDictionary Source="/Themes/DatePickerStyle.xaml"/>
+                <ResourceDictionary Source="/Themes/MenuItmeStyle.xaml"/>
+                <ResourceDictionary Source="/Themes/TitlebarButton.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
-           
-            <sys:Double x:Key="ComboBoxMinHeight">10</sys:Double>
+
+            
 
             <DataTemplate DataType="{x:Type vms:DocViewModel}">
                 <view:DocView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vms:ConfigViewModel}">
+                <view:ConfigView/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

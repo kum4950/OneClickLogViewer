@@ -1,5 +1,6 @@
 ﻿using AvalonDock.Layout.Serialization;
 using OneClickLogViewer.Core;
+using OneClickLogViewer.Models;
 using OneClickLogViewer.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -20,12 +21,12 @@ namespace OneClickLogViewer.ViewModels
         public RelayCommand MinimizeWindowCommand { get; set; }
 
 
-        public RelayCommand LoadLayoutCommand { get; set; }
-
         public RelayCommand NewCommand { get; set; }
         public RelayCommand OpenCommand { get; set; }
+        public RelayCommand LoadLayoutCommand { get; set; }
+        public RelayCommand SaveLayoutCommand { get; set; }
 
-
+        public RelayCommand Settings_Configuration_Command { get; set; }
 
 
         public object CurrentView { get; set; }
@@ -48,10 +49,32 @@ namespace OneClickLogViewer.ViewModels
             });
             MinimizeWindowCommand = new RelayCommand(o => { Application.Current.MainWindow.WindowState = WindowState.Minimized; });
 
-            NewCommand = new RelayCommand(DocVM.NewCommand.Execute,DocVM.NewCommand.CanExecute);
-            OpenCommand = new RelayCommand(DocVM.OpenCommand.Execute, DocVM.OpenCommand.CanExecute);
+            NewCommand = new RelayCommand(Workspace.This.NewCommand.Execute, Workspace.This.NewCommand.CanExecute);
+            OpenCommand = new RelayCommand(Workspace.This.OpenCommand.Execute, Workspace.This.OpenCommand.CanExecute);
+            
+            LoadLayoutCommand = new RelayCommand(o => {
+                var layoutSerializer = new XmlLayoutSerializer(Workspace.This.MyDockingManager);
 
+                layoutSerializer.LayoutSerializationCallback += (s, e) =>
+                {
 
+                };
+                layoutSerializer.Deserialize(@".\AvalonDock.Layout.config");
+            },
+            o => { 
+                return File.Exists(@".\AvalonDock.Layout.config"); 
+            });
+
+            SaveLayoutCommand = new RelayCommand(o =>
+            {
+                var layoutSerializer = new XmlLayoutSerializer(Workspace.This.MyDockingManager);
+                layoutSerializer.Serialize(@".\AvalonDock.Layout.config");
+            });
+
+            Settings_Configuration_Command = new RelayCommand(o => {
+                var configView = new ConfigView();
+                configView.ShowDialog();
+            });
 
 
         }

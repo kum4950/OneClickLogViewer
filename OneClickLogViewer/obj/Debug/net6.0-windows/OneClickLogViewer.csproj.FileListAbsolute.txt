@@ -390,6 +390,10 @@ C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\refint\OneClickL
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\OneClickLogViewer.pdb
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\OneClickLogViewer.genruntimeconfig.cache
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\ref\OneClickLogViewer.dll
-C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Styles\DatePickerStyle.baml
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\DocView.g.cs
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\DocView.baml
+C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Themes\TitlebarButton.baml
+C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Themes\DatePickerStyle.baml
+C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Themes\MenuItmeStyle.baml
+C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\ConfigView.g.cs
+C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\ConfigView.baml

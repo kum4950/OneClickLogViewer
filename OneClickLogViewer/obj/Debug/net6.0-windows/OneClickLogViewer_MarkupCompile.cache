@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\OneClickLogViewer\OneClickLogViewer\App.xaml
-3-899101417
+6-1983250827
 
-17387813378
+202137530098
 202-1393551790
-Styles\DatePickerStyle.xaml;Views\DocView.xaml;Views\MainWindow.xaml;
+Themes\DatePickerStyle.xaml;Themes\MenuItmeStyle.xaml;Themes\TitlebarButton.xaml;Views\ConfigView.xaml;Views\DocView.xaml;Views\MainWindow.xaml;
 
 False
 

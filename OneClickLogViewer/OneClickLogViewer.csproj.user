@@ -7,12 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\ConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\DocView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Styles\DatePickerStyle.xaml">
+    <Page Update="Themes\DatePickerStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MenuItmeStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\TitlebarButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ConfigView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DocView.xaml">

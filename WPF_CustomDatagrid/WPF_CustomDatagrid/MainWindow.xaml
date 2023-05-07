@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WPF_CustomDatagrid"
         xmlns:GenreEnum="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <local:Songs/>
     </Window.DataContext>
@@ -100,7 +101,7 @@
                                          />
             </DataGrid.Columns>
             
-            <!--<DataGrid.RowDetailsTemplate>
+            <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <StackPanel Margin="15,0">
                         <TextBlock Text="{Binding MovieTitle}"/>
@@ -108,7 +109,7 @@
                                   HeadersVisibility="None"/>
                     </StackPanel>
                 </DataTemplate>
-            </DataGrid.RowDetailsTemplate>-->
+            </DataGrid.RowDetailsTemplate>
             
         </DataGrid>
         <StackPanel x:Name="STKPNL">

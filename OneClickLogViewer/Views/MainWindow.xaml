@@ -13,7 +13,7 @@
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True"
-        ResizeMode="CanResize">
+        ResizeMode="CanResizeWithGrip">
 
     <Window.DataContext>
         <viewmodel:MainViewModel/>
@@ -49,13 +49,16 @@
                             Margin="0,0,4,0">
                     <Button Content="━"
                             Padding="0,0,0,2"
-                            Command="{Binding MinimizeWindowCommand}"/>
+                            Command="{Binding MinimizeWindowCommand}"
+                            Style="{StaticResource TitlebarButtonStyle}"/>
                     <Button Content="⬜"
                             Padding="0,0,0,3"
-                            Command="{Binding MaximizeWindowCommand}"/>
+                            Command="{Binding MaximizeWindowCommand}"
+                            Style="{StaticResource TitlebarButtonStyle}"/>
                     <Button Content="✕"
                             Padding="0,0,0,2"
-                            Command="{Binding ShutdownWindowCommand}"/>
+                            Command="{Binding ShutdownWindowCommand}"
+                            Style="{StaticResource TitlebarButtonStyle}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -70,11 +73,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Menu Grid.Row="0" 
-              Background="#D5D5D5"
-              Height="21">
-                <MenuItem Header="File"
-                      Height="21">
+            <Menu Grid.Row="0">
+                <MenuItem Header="File">
                     <MenuItem Header="New" Command="{Binding NewCommand}"/>
                     <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
                     <Separator/>
@@ -84,16 +84,18 @@
                     <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
                 </MenuItem>
 
-                <MenuItem Header="Tools"
-                      Height="21">
+                <MenuItem Header="Tools">
                     <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
                 </MenuItem>
 
-                <MenuItem Header="Layout"
-                      Height="21">
+                <MenuItem Header="Layout">
                     <MenuItem Header="Load" Command="{Binding LoadLayoutCommand, ElementName=mainWindow}"/>
                     <MenuItem Header="Save" Command="{Binding SaveLayoutCommand, ElementName=mainWindow}"/>
                     <!--<MenuItem Header="Dump to Console" Click="OnDumpToConsole"/>-->
+                </MenuItem>
+
+                <MenuItem Header="Settings">
+                    <MenuItem Header="Configurations" Command="{Binding Settings_Configuration_Command}"/>
                 </MenuItem>
 
             </Menu>
@@ -107,10 +109,11 @@
                        Foreground="Black"/>
 
                 <DatePicker Margin="5,0,0,0"
-                        FontSize="8"/>
+                            FontSize="8"/>
 
                 <ui:SimpleTimePicker Margin="5,0,0,0"
                                  FontSize="8"/>
+                
                 <TextBlock Text="~" 
                        FontSize="12"
                        VerticalAlignment="Center"
