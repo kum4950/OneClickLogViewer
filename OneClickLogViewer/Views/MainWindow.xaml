@@ -13,7 +13,8 @@
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Closing="Window_Closing">
 
     <Window.DataContext>
         <viewmodel:MainViewModel/>

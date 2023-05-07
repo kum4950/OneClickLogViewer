@@ -12,4 +12,13 @@
     <PackageReference Include="ModernWpfUI.MahApps" Version="0.9.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Config\AvalonDock.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\ID_Path.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

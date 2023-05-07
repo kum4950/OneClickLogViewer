@@ -23,8 +23,12 @@ namespace OneClickLogViewer.Models
 
         public static List<IDConfig> GetIDConfigs()
         {
-            var file = @"C:\ID_Path.config";
-            var lines = File.ReadAllLines(file);
+            string exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string fullPath = exePath + App.ID_PathConfigPath;
+
+            var lines = File.ReadAllLines(fullPath);
+
+
             var list = new List<IDConfig>();
             
             Console.WriteLine(lines.Length);
@@ -34,16 +38,16 @@ namespace OneClickLogViewer.Models
             {
                 var line = lines[i].Split(',');
 
-                List<IDtoPath> pathlist = new List<IDtoPath>();
+                List<string> pathlist = new List<string>();
                 string allpathName = "";
+
+                Console.WriteLine(int.Parse(line[0]));
 
                 for(int j = 1; j < line.Length; j++)
                 {
-                    var idtopath = new IDtoPath() { PathName = line[j] };
-                    pathlist.Add(idtopath);
+                    pathlist.Add(line[j]);
                     allpathName += line[j] + ',';
                     Console.WriteLine(line[j]);
-
                 }
 
                 var idConfig = new IDConfig()
@@ -60,17 +64,10 @@ namespace OneClickLogViewer.Models
     }
 
 
-
-
-    public class IDtoPath
-    {
-        public string? PathName { get; set; }
-    }
-
     public class IDConfig
     {
         public int ID { get; set; }
         public string? AllPathName { get; set; }
-        public List<IDtoPath>? PathList { get; set; }
+        public List<string>? PathList { get; set; }
     }
 }

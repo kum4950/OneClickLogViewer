@@ -28,9 +28,14 @@ namespace exe_executer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string id = txtbox.Text;
+            DateTime? selectedDate = DatePick.SelectedDate;
+
+            Console.WriteLine($"{id}, {selectedDate}");
+
             // 실행할 파일 경로와 인수 설정
             string filePath = "C:\\OneClickLogViewer\\OneClickLogViewer\\bin\\Debug\\net6.0-windows\\OneClickLogViewer.exe";
-            string arguments = "1";
+            string arguments = "161610,23/05/02,07:15:44.209";
 
             // 프로세스 시작 정보 객체 생성
             ProcessStartInfo startInfo = new ProcessStartInfo(filePath, arguments);

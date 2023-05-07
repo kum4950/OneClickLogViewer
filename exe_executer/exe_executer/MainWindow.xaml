@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:exe_executer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Click="Button_Click">Clickme</Button>
-    </Grid>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>ID</Label>
+            <TextBox x:Name="txtbox" Width="300"></TextBox>
+        </StackPanel>
+        
+        <DatePicker Name="DatePick" SelectedDateFormat="Short"></DatePicker>
+        <Button Click="Button_Click">Send</Button>
+    </StackPanel>
 </Window>

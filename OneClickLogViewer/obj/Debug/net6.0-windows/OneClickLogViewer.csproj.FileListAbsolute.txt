@@ -397,3 +397,5 @@ C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Themes\DatePicke
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Themes\MenuItmeStyle.baml
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\ConfigView.g.cs
 C:\OneClickLogViewer\OneClickLogViewer\obj\Debug\net6.0-windows\Views\ConfigView.baml
+C:\OneClickLogViewer\OneClickLogViewer\bin\Debug\net6.0-windows\Config\AvalonDock.config
+C:\OneClickLogViewer\OneClickLogViewer\bin\Debug\net6.0-windows\Config\ID_Path.config

@@ -1,8 +1,10 @@
 ﻿using AvalonDock.Layout.Serialization;
 using OneClickLogViewer.Core;
 using OneClickLogViewer.Views;
+using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace OneClickLogViewer
@@ -24,5 +26,11 @@ namespace OneClickLogViewer
 
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Console.WriteLine("Windwo Close");
+            // UserControl의 Unloaded 이벤트 호출
+
+        }
     }
 }

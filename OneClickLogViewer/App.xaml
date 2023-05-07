@@ -6,6 +6,7 @@
              xmlns:view="clr-namespace:OneClickLogViewer.Views"
              StartupUri="Views/MainWindow.xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
+             Startup="App_Startup"
               >
     <Application.Resources>
         <ResourceDictionary>
