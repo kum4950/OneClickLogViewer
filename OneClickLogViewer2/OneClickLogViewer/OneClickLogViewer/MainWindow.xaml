@@ -164,7 +164,6 @@
         <CommandBinding Command="{x:Static my:MainWindow.FindCommand}" Executed="findMenuItem_Click" />
         <CommandBinding Command="{x:Static my:MainWindow.ReplaceCommand}" Executed="replaceMenuItem_Click" />
         <CommandBinding Command="{x:Static my:MainWindow.GotoCommand}" Executed="gotoMenuItem_Click" />
-        <CommandBinding Command="{x:Static my:MainWindow.ViewTheme}" Executed="ChangeThemeCommand_Executed"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N"
@@ -279,7 +278,10 @@
                         <Separator/>
                         
                         <TextBox Text="Time:"/>
-                        <mah:TimePicker/>
+                        <mah:TimePicker x:Name="mytimepicker" SelectedTimeFormat="Long" IsClockVisible="False" Culture="en-IN"  >
+                          
+
+                        </mah:TimePicker>
                         <TextBox Text="~"/>
                         <mah:TimePicker/>
 
@@ -292,6 +294,7 @@
                            DockPanel.Dock="Bottom">
                     <StatusBarItem />
                 </StatusBar>
+                <StackPanel x:Name="mystackpanel" DockPanel.Dock="Bottom"/>
                 <ad:DockingManager Name="dockPanel" ActiveContentChanged="dockPanel_ActiveContentChanged">
                     <ad:DockingManager.Theme>
                         <ad:Vs2013DarkTheme />

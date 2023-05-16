@@ -13,6 +13,9 @@ using MahApps.Metro.Controls;
 using OneClickLogViewer.MVVM.Views;
 using ControlzEx.Theming;
 using MahApps.Metro.Theming;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls.Primitives;
 
 namespace OneClickLogViewer
 {
@@ -61,26 +64,22 @@ namespace OneClickLogViewer
 
         #region Fields
 
-        private static readonly string[] ThemeResourceUris =
-   {
-      "OneClickLogViewer;component/Themes/ExpressionDark/ExpressionDark.xaml",
-      "OneClickLogViewer;component/Themes/Generic.xaml",
-      "OneClickLogViewer;component/Themes/WhistlerBlue/WhistlerBlue.xaml"
-    };
-
+        //kum
+        //private int bookmarkNum = 0;
 
         private const string NEW_DOCUMENT_TEXT = "Untitled";
         private const int LINE_NUMBERS_MARGIN_WIDTH = 30; // TODO - don't hardcode this
 
+
         /// <summary>
         /// the background color of the text area
         /// </summary>
-        private const int BACK_COLOR = 0x2A211C;
+        private int BACK_COLOR = 0x2A211C;
 
         /// <summary>
         /// default text color of the text area
         /// </summary>
-        private const int FORE_COLOR = 0xB7B7B7;
+        private int FORE_COLOR = 0xB7B7B7;
 
         /// <summary>
         /// change this to whatever margin you want the line numbers to show in
@@ -98,6 +97,9 @@ namespace OneClickLogViewer
         /// change this to whatever margin you want the code folding tree (+/-) to show in
         /// </summary>
         private const int FOLDING_MARGIN = 3;
+
+        private const int CHECK_MARGIN = 4;
+        private int check_num = 0;
 
         /// <summary>
         /// set this true to show circular buttons for code folding (the [+] and [-] buttons on the margin)
@@ -144,6 +146,8 @@ namespace OneClickLogViewer
             MyFindReplace.KeyPressed += MyFindReplace_KeyPressed;
 
             this.CurrentTheme = TypeOfTheme.Generic;
+
+            
         }
 
         #endregion Constructors
@@ -454,6 +458,20 @@ namespace OneClickLogViewer
             }
         }
 
+        private void CheckNumbersMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the line numbers margin for all documents
+            lineNumbersMenuItem.IsChecked = !lineNumbersMenuItem.IsChecked;
+            foreach (DocumentForm docForm in Documents)
+            {
+                if (lineNumbersMenuItem.IsChecked)
+                    docForm.Scintilla.Margins[NUMBER_MARGIN].Width = LINE_NUMBERS_MARGIN_WIDTH;
+                else
+                    docForm.Scintilla.Margins[NUMBER_MARGIN].Width = 0;
+            }
+        }
+
+
         #region Folding
 
         private void foldLevelMenuItem_Click(object sender, RoutedEventArgs e)
@@ -551,38 +569,10 @@ namespace OneClickLogViewer
 
             this.dockPanel.Theme = new AvalonDock.Themes.Vs2013LightTheme();
 
-        }
+        
 
-        private void ChangeThemeCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            string sParameter = e.Parameter as string;
+    }
 
-            if (sParameter == null) return;
-
-            int i = 0;
-            bool bFound = false;
-            foreach (MainWindow.TypeOfTheme t in Enum.GetValues(typeof(MainWindow.TypeOfTheme)))
-            {
-                if (t.ToString().ToLower() == sParameter.ToLower())
-                {
-                    this.CurrentTheme = t;
-                    bFound = true;
-                    break;
-                }
-
-                i++;
-            }
-
-            if (bFound == false)
-                throw new NotImplementedException(sParameter);
-
-            string sThemeResourceUrl = MainWindow.MapThemeEnumToSourceFile(this.CurrentTheme);
-
-            ResourceDictionary skin = new ResourceDictionary();
-            skin.Source = new Uri(sThemeResourceUrl, UriKind.RelativeOrAbsolute);
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(skin);
-        }
 
         #region Help
 
@@ -612,14 +602,6 @@ namespace OneClickLogViewer
 
         #region Methods
 
-        internal static string MapThemeEnumToSourceFile(TypeOfTheme myTheme)
-        {
-            return ThemeResourceUris[(int)myTheme];
-        }
-
-
-
-
 
         private void dockPanel_ActiveContentChanged(object sender, EventArgs e)
         {
@@ -634,6 +616,8 @@ namespace OneClickLogViewer
                 this.Title = Program.Title;
         }
 
+
+        //kum
         private void InitBookmarkMargin(ScintillaWPF ScintillaNet)
         {
             //TextArea.SetFoldMarginColor(true, IntToColor(BACK_COLOR));
@@ -643,14 +627,70 @@ namespace OneClickLogViewer
             margin.Sensitive = true;
             margin.Type = MarginType.Symbol;
             margin.Mask = (1 << BOOKMARK_MARKER);
-            //margin.Cursor = MarginCursor.Arrow;
 
-            var marker = ScintillaNet.Markers[BOOKMARK_MARKER];
-            marker.Symbol = MarkerSymbol.Circle;
-            marker.SetBackColor(IntToColor(0xFF003B));
-            marker.SetForeColor(IntToColor(0x000000));
-            marker.SetAlpha(100);
+            SetMarker(ScintillaNet);
+
         }
+
+        private void SetMarker(ScintillaWPF ScintillaNet)
+        {
+            var marker = ScintillaNet.Markers[BOOKMARK_MARKER];
+            marker.SetAlpha(50);
+            //marker.SetBackColor(Color.FromArgb(50,0,0,0);
+
+            /*
+            var marker = ScintillaNet.Markers[bookmarkNum];
+            marker.Symbol = MarkerSymbol.RgbaImage;
+
+            FormattedText text = new FormattedText(bookmarkNum.ToString(), new CultureInfo("en-us"), FlowDirection.LeftToRight,
+                new Typeface(this.FontFamily, FontStyles.Normal, FontWeights.Normal, new FontStretch()), 16, Brushes.Red, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+            DrawingVisual drawingVisual = new DrawingVisual();
+            DrawingContext drawingContext = drawingVisual.RenderOpen();
+            drawingContext.DrawText(text, new Point(0, 0));
+            drawingContext.Close();
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap(20, 20, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(drawingVisual);
+
+            MemoryStream stream = new MemoryStream();
+            BitmapEncoder encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+            encoder.Save(stream);
+
+            System.Drawing.Bitmap mybitmap = new System.Drawing.Bitmap(stream);
+
+
+            using (var bitmap = new System.Drawing.Bitmap(mybitmap))
+            {
+                marker.DefineRgbaImage(bitmap);
+            }
+            */
+        }
+
+        public static RenderTargetBitmap GetBitmapFromControl(Grid view)
+        {
+            Size size = new Size(view.ActualWidth, view.ActualHeight);
+            if (size.IsEmpty)
+                return null;
+
+            size = new Size(20, 20);
+
+            RenderTargetBitmap result = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
+
+            DrawingVisual drawingvisual = new DrawingVisual();
+            using (DrawingContext context = drawingvisual.RenderOpen())
+            {
+                context.DrawRectangle(new VisualBrush(view), null, new Rect(new Point(), size));
+                context.Close();
+            }
+
+            result.Render(drawingvisual);
+
+            return result;
+        }
+
+
 
         private void InitCodeFolding(ScintillaWPF ScintillaNet)
         {
@@ -825,6 +865,39 @@ namespace OneClickLogViewer
             return doc;
         }
 
+        /*
+        public unsafe static byte[] GetBytes(string text, Encoding encoding, bool zeroTerminated)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                if (!zeroTerminated)
+                {
+                    return new byte[0];
+                }
+
+                return new byte[1];
+            }
+
+            int byteCount = encoding.GetByteCount(text);
+            byte[] array = new byte[byteCount + (zeroTerminated ? 1 : 0)];
+            fixed (byte* bytes = array)
+            {
+                fixed (char* chars = text)
+                {
+                    encoding.GetBytes(chars, text.Length, bytes, byteCount);
+                }
+            }
+
+            if (zeroTerminated)
+            {
+                array[array.Length - 1] = 0;
+            }
+
+            return array;
+        }
+        */
+
+
         private void SetScintillaToCurrentOptions(DocumentForm doc)
         {
             ScintillaWPF ScintillaNet = doc.Scintilla;
@@ -841,6 +914,28 @@ namespace OneClickLogViewer
             // NUMBER MARGIN
             InitNumberMargin(ScintillaNet);
 
+
+
+            ScintillaNet.Styles[ScintillaNET.Style.IndentGuide].ForeColor = IntToColor(0xFF0000);
+            ScintillaNet.Styles[ScintillaNET.Style.IndentGuide].BackColor = IntToColor(0xD5D5D5);
+            ScintillaNet.Styles[ScintillaNET.Style.IndentGuide].Bold = true;
+            ScintillaNet.Styles[ScintillaNET.Style.IndentGuide].Size = 12;
+            ScintillaNet.Styles[ScintillaNET.Style.IndentGuide].Italic = true;
+
+
+            var text = ScintillaNet.Margins[CHECK_MARGIN];
+            text.Type = MarginType.Text;
+            text.BackColor = IntToColor(0x212121);
+            text.Width = 12;
+            text.Sensitive = true;
+            text.Mask = 0;
+
+            /*
+            var bytes = Helpers.GetBytes("ssss", ScintillaNet.Encoding, zeroTerminated: true);
+            fixed (byte* bp = bytes)
+                scintilla.DirectMessage(NativeMethods.SCI_MARGINSETTEXT, new IntPtr(Index), new IntPtr(bp));
+
+            */
             // BOOKMARK MARGIN
             InitBookmarkMargin(ScintillaNet);
 
@@ -915,26 +1010,76 @@ namespace OneClickLogViewer
             }
         }
 
+
+        //kum
         private void TextArea_MarginClick(object sender, MarginClickEventArgs e)
         {
             ScintillaNET.WPF.ScintillaWPF TextArea = ActiveDocument.Scintilla;
 
+            Console.WriteLine("margin click");
+
+           
+
             if (e.Margin == BOOKMARK_MARGIN)
             {
+                var line = TextArea.Lines[TextArea.LineFromPosition(e.Position)];
                 // Do we have a marker for this line?
                 const uint mask = (1 << BOOKMARK_MARKER);
-                var line = TextArea.Lines[TextArea.LineFromPosition(e.Position)];
+
+                //int mask = (1 << bookmarkNum);
+
+                
                 if ((line.MarkerGet() & mask) > 0)
                 {
                     // Remove existing bookmark
                     line.MarkerDelete(BOOKMARK_MARKER);
+                    //line.MarkerDelete(bookmarkNum);
+                    //ActiveDocument.scintilla.DirectMessage(2044, new IntPtr(line.Index), new IntPtr(bookmarkNum));
+                    //bookmarkNum--;
+                    //지우면 다시 마커 숫자 세야할듯?
                 }
                 else
                 {
                     // Add bookmark
+
+                    //SetMarker(ActiveDocument.scintilla);
+
                     line.MarkerAdd(BOOKMARK_MARKER);
+                    //line.MarkerAdd(bookmarkNum);
+
+                    //ActiveDocument.scintilla.DirectMessage(2043,new IntPtr(line.Index),new IntPtr(bookmarkNum));
+                    //bookmarkNum++;
+
+                    
                 }
             }
+
+            if(e.Margin == CHECK_MARGIN)
+            {
+                var line = TextArea.Lines[TextArea.LineFromPosition(e.Position)];
+
+                if (line.MarginText == string.Empty)
+                {
+                    Console.WriteLine(line.MarginStyle);
+                    line.MarginStyle = ScintillaNET.Style.IndentGuide;
+                    line.MarginText = check_num.ToString();
+
+                    check_num++;
+
+                    if (check_num >= 10)
+                    {
+                        TextArea.Margins[CHECK_MARGIN].Width = 24;
+                    }
+                }
+                else
+                {
+                    line.MarginText = string.Empty;
+                    check_num--;
+                    // 지우면 숫자 꼬임 수정해야함.
+                }
+
+            }
+
         }
 
         private static Visibility Toggle(Visibility v)
@@ -949,6 +1094,63 @@ namespace OneClickLogViewer
             // DEFAULT FILE
             //OpenFile("../../OneClickLogViewer/MainWindow.xaml.cs");
             //OpenFile("../../OneClickLogViewer/DocumentForm.xaml.cs");
+
+            this.mytimepicker.PickerVisibility = TimePartVisibility.Hour | TimePartVisibility.Minute | TimePartVisibility.Second;
+
+
+           
+
+            Popup pp = this.mytimepicker.Template.FindName("PART_Popup", mytimepicker) as Popup;
+
+            FrameworkElement childElement = pp.FindName("PART_ClockPartSelectorsHolder") as FrameworkElement;
+
+
+            FrameworkElement comboBox = pp.FindName("PART_AmPmSwitcher") as FrameworkElement;
+
+
+            if (childElement != null)
+            {
+                // 자식 요소를 찾았을 때 필요한 작업 수행
+                // ...
+                
+                Grid mygrid = (Grid)childElement;
+                ColumnDefinitionCollection columnDefinitions = mygrid.ColumnDefinitions;
+
+                Console.WriteLine(columnDefinitions.Count);
+
+                columnDefinitions.RemoveAt(columnDefinitions.Count - 1);
+
+                Console.WriteLine(columnDefinitions.Count);
+
+
+
+                comboBox.Visibility = Visibility.Hidden;
+
+
+
+            }
+
+
+
+            Image myImage = new Image();
+
+            FormattedText text = new FormattedText("ABC", new CultureInfo("en-us"), FlowDirection.LeftToRight,
+                new Typeface(this.FontFamily, FontStyles.Normal, FontWeights.Normal, new FontStretch()), 16, Brushes.Black, VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+
+            DrawingVisual drawingVisual = new DrawingVisual();
+            DrawingContext drawingContext = drawingVisual.RenderOpen();
+            drawingContext.DrawText(text, new Point(0, 0));
+            drawingContext.Close();
+
+            RenderTargetBitmap bmp = new RenderTargetBitmap(100, 100, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(drawingVisual);
+
+            myImage.Source = bmp;
+
+            this.mystackpanel.Children.Add(myImage);
+            mystackpanel.Background = Brushes.Red;
+            mystackpanel.Height = 100;
         }
 
         #endregion Methods
